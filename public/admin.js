@@ -1,26 +1,15 @@
-window.define = window.define || ((module, dependencies, callback) => callback(window.jQuery, window.app))
+'use strict';
 
-window.$ = window.$ || window.jQuery
-window.app = window.app || {}
+define('admin/plugins/harmony', ['settings'], function (Settings) {
+	var ACP = {};
 
-define("admin/plugins/hacker", ["settings"], (Settings) => {
-  const Admin = {}
+	ACP.init = function () {
+		Settings.load('harmony', $('.harmony-settings'));
 
-  Admin.init = () => {
-    Settings.load("hacker", $(".hacker-settings"))
+		$('#save').on('click', function () {
+			Settings.save('harmony', $('.harmony-settings'));
+		});
+	};
 
-    $("#save").on("click", () => {
-      Settings.save("hacker", $(".hacker-settings"), () => {
-        window.app.alert({
-          type: "success",
-          alert_id: "hacker-saved",
-          title: "Settings Saved",
-          message: "Hacker theme settings have been saved successfully!",
-          timeout: 2500,
-        })
-      })
-    })
-  }
-
-  return Admin
-})
+	return ACP;
+});

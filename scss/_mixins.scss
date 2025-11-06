@@ -1,58 +1,139 @@
-// Mixins for Hacker Theme
+// HackerTerminal Mixins - Reusable style patterns
 
-@mixin glow-effect($color: $neon-green, $intensity: 0.5) {
-  box-shadow: 0 0 20px rgba($color, $intensity);
-  transition: box-shadow $transition-normal;
+// Glitch text effect
+@mixin glitch-text($color: $color-terminal-green) {
+  position: relative;
   
-  &:hover {
-    box-shadow: 0 0 30px rgba($color, $intensity + 0.2);
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &::before {
+    left: 2px;
+    text-shadow: -2px 0 $color-blood-red;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  
+  &::after {
+    left: -2px;
+    text-shadow: -2px 0 $color-cyber-purple;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
   }
 }
 
-@mixin terminal-border {
-  border: 1px solid $border-color;
+// Neon glow effect
+@mixin neon-glow($color: $color-terminal-green, $intensity: 1) {
+  text-shadow: 
+    0 0 5px rgba($color, 0.5 * $intensity),
+    0 0 10px rgba($color, 0.4 * $intensity),
+    0 0 20px rgba($color, 0.3 * $intensity),
+    0 0 40px rgba($color, 0.2 * $intensity);
+}
+
+// Box glow effect
+@mixin box-glow($color: $color-terminal-green, $intensity: 1) {
+  box-shadow: 
+    0 0 5px rgba($color, 0.3 * $intensity),
+    0 0 10px rgba($color, 0.2 * $intensity),
+    0 0 20px rgba($color, 0.1 * $intensity),
+    inset 0 0 10px rgba($color, 0.1 * $intensity);
+}
+
+// Terminal border
+@mixin terminal-border($color: $color-terminal-green) {
+  border: 1px solid $color;
+  @include box-glow($color, 0.8);
+}
+
+// Scanline effect
+@mixin scanline-overlay {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: $z-scanline;
+  }
+}
+
+// Flicker animation
+@mixin flicker($duration: 0.1s) {
+  animation: flicker $duration infinite alternate;
+}
+
+// Typing cursor effect
+@mixin typing-cursor {
+  &::after {
+    content: '▊';
+    color: $color-terminal-green;
+    animation: blink 1s infinite;
+  }
+}
+
+// Matrix rain background
+@mixin matrix-background {
+  background: 
+    linear-gradient(
+      180deg,
+      $color-black 0%,
+      $color-void 50%,
+      $color-black 100%
+    );
+  position: relative;
+}
+
+// Hover glow effect
+@mixin hover-glow($color: $color-terminal-green) {
+  transition: all $transition-normal;
+  
+  &:hover {
+    @include box-glow($color, 1.5);
+    border-color: $color;
+    transform: translateY(-2px);
+  }
+}
+
+// Terminal window style
+@mixin terminal-window {
+  background: $color-void;
+  @include terminal-border($color-terminal-green);
   border-radius: $radius-md;
-  background: $bg-secondary;
+  padding: $spacing-md;
+  font-family: $font-primary;
+  color: $color-text-terminal;
+}
+
+// Code block style
+@mixin code-block {
+  background: $color-input-bg;
+  border-left: 3px solid $color-terminal-green;
+  padding: $spacing-md;
+  font-family: $font-primary;
+  color: $color-text-terminal;
+  overflow-x: auto;
   
   &:hover {
-    border-color: $border-glow;
-  }
-}
-
-@mixin neon-text($color: $neon-green) {
-  color: $color;
-  text-shadow: 0 0 10px rgba($color, 0.8);
-}
-
-@mixin glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@mixin grid-background {
-  background-image: 
-    linear-gradient(rgba($neon-green, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba($neon-green, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-@mixin scrollbar-style {
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: $bg-secondary;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: $neon-green;
-    border-radius: 4px;
-    
-    &:hover {
-      background: lighten($neon-green, 10%);
-    }
+    border-left-color: $color-cyber-purple;
+    @include box-glow($color-cyber-purple, 0.5);
   }
 }

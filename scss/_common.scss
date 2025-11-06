@@ -1,0 +1,290 @@
+// HackerTerminal Common Styles - Base styles for all pages
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  background: $color-black;
+  color: $color-text-primary;
+  line-height: 1.6;
+  overflow-x: hidden;
+  @include scanline-overlay;
+  
+  // Subtle background pattern
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(157, 0, 255, 0.03) 0%, transparent 50%);
+}
+
+// Selection styling
+::selection {
+  background: $color-terminal-green;
+  color: $color-black;
+}
+
+::-moz-selection {
+  background: $color-terminal-green;
+  color: $color-black;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-void;
+  border-left: 1px solid $color-border;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-terminal-green;
+  border-radius: $radius-sm;
+  @include box-glow($color-terminal-green, 0.5);
+  
+  &:hover {
+    background: $color-matrix-green;
+    @include box-glow($color-terminal-green, 1);
+  }
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-secondary;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+  color: $color-terminal-green;
+  @include neon-glow($color-terminal-green, 0.5);
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+p {
+  margin-bottom: $spacing-md;
+  color: $color-text-secondary;
+}
+
+a {
+  color: $color-terminal-green;
+  text-decoration: none;
+  transition: all $transition-fast;
+  position: relative;
+  
+  &:hover {
+    color: $color-matrix-green;
+    @include neon-glow($color-terminal-green, 0.8);
+  }
+  
+  &:active {
+    color: $color-cyber-purple;
+  }
+}
+
+// Buttons
+button,
+.btn {
+  font-family: $font-primary;
+  background: transparent;
+  color: $color-terminal-green;
+  @include terminal-border($color-terminal-green);
+  padding: $spacing-sm $spacing-lg;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  transition: all $transition-normal;
+  
+  &:hover {
+    background: rgba($color-terminal-green, 0.1);
+    @include box-glow($color-terminal-green, 1.2);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &.btn-danger {
+    color: $color-blood-red;
+    border-color: $color-blood-red;
+    
+    &:hover {
+      background: rgba($color-blood-red, 0.1);
+      @include box-glow($color-blood-red, 1.2);
+    }
+  }
+  
+  &.btn-primary {
+    background: $color-terminal-green;
+    color: $color-black;
+    
+    &:hover {
+      background: $color-matrix-green;
+      @include box-glow($color-terminal-green, 1.5);
+    }
+  }
+}
+
+// Forms
+input,
+textarea,
+select {
+  font-family: $font-primary;
+  background: $color-input-bg;
+  color: $color-text-terminal;
+  border: 1px solid $color-border;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-sm;
+  transition: all $transition-normal;
+  
+  &:focus {
+    outline: none;
+    @include terminal-border($color-terminal-green);
+    background: $color-void;
+  }
+  
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+// Cards
+.card {
+  background: $color-card-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  transition: all $transition-normal;
+  
+  &:hover {
+    @include box-glow($color-terminal-green, 0.5);
+    border-color: $color-terminal-green;
+  }
+}
+
+// Code blocks
+code {
+  @include code-block;
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-sm;
+  font-size: 0.9em;
+}
+
+pre {
+  @include code-block;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-lg;
+  
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $spacing-lg;
+  
+  th,
+  td {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $color-border;
+    text-align: left;
+  }
+  
+  th {
+    background: $color-dark-gray;
+    color: $color-terminal-green;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  tr {
+    transition: all $transition-fast;
+    
+    &:hover {
+      background: $color-hover-bg;
+    }
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  background: transparent;
+  @include terminal-border($color-terminal-green);
+  border-radius: $radius-sm;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $color-terminal-green;
+}
+
+// Alerts
+.alert {
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-lg;
+  border-left: 4px solid;
+  
+  &.alert-success {
+    background: rgba($color-terminal-green, 0.1);
+    border-color: $color-terminal-green;
+    color: $color-terminal-green;
+  }
+  
+  &.alert-danger {
+    background: rgba($color-blood-red, 0.1);
+    border-color: $color-blood-red;
+    color: $color-blood-red;
+  }
+  
+  &.alert-warning {
+    background: rgba($color-cyber-purple, 0.1);
+    border-color: $color-cyber-purple;
+    color: $color-cyber-purple;
+  }
+}
+
+// Loading spinner
+.spinner {
+  border: 3px solid $color-border;
+  border-top: 3px solid $color-terminal-green;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  @include box-glow($color-terminal-green, 0.8);
+}

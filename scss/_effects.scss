@@ -1,0 +1,227 @@
+// HackerTerminal Special Effects - Advanced visual effects
+
+// Matrix rain background effect
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  
+  &::before {
+    content: '01010101010101010101010101010101010101010101010101010101010101010101010101010101';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    font-family: $font-primary;
+    font-size: 0.8rem;
+    color: $color-terminal-green;
+    line-height: 1.2;
+    word-wrap: break-word;
+    animation: matrix-rain 10s linear infinite;
+  }
+}
+
+// CRT screen effect
+.crt-effect {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: $z-scanline;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba($color-terminal-green, 0.1);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: $z-scanline;
+  }
+}
+
+// Glitch text effect class
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  
+  &[data-text]::before,
+  &[data-text]::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &[data-text]::before {
+    left: 2px;
+    text-shadow: -2px 0 $color-blood-red;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  
+  &[data-text]::after {
+    left: -2px;
+    text-shadow: -2px 0 $color-cyber-purple;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+  }
+}
+
+// Terminal prompt effect
+.terminal-prompt {
+  &::before {
+    content: '> ';
+    color: $color-terminal-green;
+    @include neon-glow($color-terminal-green, 0.8);
+  }
+}
+
+// Neon border effect
+.neon-border {
+  @include terminal-border($color-terminal-green);
+  animation: pulse-glow 2s infinite;
+}
+
+// Danger neon border
+.neon-border-danger {
+  @include terminal-border($color-blood-red);
+  animation: pulse-glow 2s infinite;
+}
+
+// Hologram effect
+.hologram {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba($color-terminal-green, 0.05) 50%,
+      transparent 100%
+    );
+    animation: scanline 3s linear infinite;
+    pointer-events: none;
+  }
+}
+
+// Digital noise effect
+.digital-noise {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+
+// Cyberpunk grid background
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba($color-terminal-green, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-terminal-green, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+}
+
+// Hacker typing effect
+.typing-effect {
+  overflow: hidden;
+  border-right: 2px solid $color-terminal-green;
+  white-space: nowrap;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+// Blood drip effect (for horror aesthetic)
+.blood-drip {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 2px;
+    height: 10px;
+    background: linear-gradient(
+      180deg,
+      $color-blood-red 0%,
+      transparent 100%
+    );
+    animation: drip 3s ease-in-out infinite;
+  }
+}
+
+@keyframes drip {
+  0%, 100% {
+    height: 0;
+    opacity: 0;
+  }
+  50% {
+    height: 20px;
+    opacity: 1;
+  }
+}
+
+// Corrupted text effect
+.corrupted-text {
+  position: relative;
+  
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $color-blood-red;
+    opacity: 0.7;
+    animation: glitch-shake 0.3s infinite;
+  }
+}

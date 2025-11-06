@@ -1,0 +1,39 @@
+// HackerTerminal Mobile Navigation
+
+.mobile-nav {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $color-void;
+    border-top: 2px solid $color-terminal-green;
+    @include box-glow($color-terminal-green, 0.5);
+    z-index: $z-dropdown;
+    
+    .mobile-nav-items {
+      display: flex;
+      justify-content: space-around;
+      padding: $spacing-sm 0;
+      
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-xs;
+        color: $color-text-secondary;
+        font-size: 0.75rem;
+        padding: $spacing-sm;
+        
+        &:hover,
+        &.active {
+          color: $color-terminal-green;
+          @include neon-glow($color-terminal-green, 0.5);
+        }
+      }
+    }
+  }
+}

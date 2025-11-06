@@ -1,44 +1,31 @@
-window.define =
-  window.define ||
-  ((module, dependencies, callback) => {
-    callback(window.require(dependencies))
-  })
+'use strict';
 
-window.$ = window.$ || ((selector) => document.querySelector(selector))
+define('forum/account/theme', ['forum/account/header', 'api', 'settings', 'alerts'], function (header, api, settings, alerts) {
+	const Theme = {};
 
-window.app = window.app || {
-  alert: (options) => {
-    console.log(options.message)
-  },
-}
+	Theme.init = () => {
+		header.init();
+		Theme.setupForm();
+	};
 
-define("client/account/theme", ["settings"], (Settings) => {
-  const AccountTheme = {}
+	Theme.setupForm = () => {
+		const saveEl = document.getElementById('save');
+		if (saveEl) {
+			const formEl = document.getElementById('theme-settings');
+			saveEl.addEventListener('click', async () => {
+				const themeSettings = settings.helper.serializeForm($(formEl));
+				await api.put(`/users/${ajaxify.data.uid}/settings`, {
+					settings: {
+						...themeSettings,
+					},
+				});
+				if (ajaxify.data.isSelf) {
+					config.theme = (await api.get('/api/config')).theme;
+				}
+				alerts.success('[[success:settings-saved]]');
+			});
+		}
+	};
 
-  AccountTheme.init = () => {
-    Settings.load("user", $(".account-theme-settings"))
-
-    $("#save-theme-settings").on("click", () => {
-      Settings.save("user", $(".account-theme-settings"), () => {
-        app.alert({
-          type: "success",
-          alert_id: "theme-saved",
-          title: "Theme Settings Saved",
-          message: "Your theme preferences have been saved!",
-          timeout: 2500,
-        })
-      })
-    })
-
-    // Matrix rain toggle
-    $("#enable-matrix-rain").on("change", function () {
-      if (this.checked) {
-        localStorage.setItem("hacker-matrix-rain", "true")
-      } else {
-        localStorage.setItem("hacker-matrix-rain", "false")
-      }
-    })
-  }
-
-  return AccountTheme
-})
+	return Theme;
+});

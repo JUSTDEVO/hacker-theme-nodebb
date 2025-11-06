@@ -1,0 +1,29 @@
+// HackerTerminal Status Indicators
+
+.status-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: $spacing-xs;
+  
+  &.online {
+    background: $color-terminal-green;
+    @include box-glow($color-terminal-green, 1);
+    animation: pulse-glow 2s infinite;
+  }
+  
+  &.offline {
+    background: $color-text-muted;
+  }
+  
+  &.away {
+    background: $color-cyber-purple;
+    @include box-glow($color-cyber-purple, 0.8);
+  }
+  
+  &.busy {
+    background: $color-blood-red;
+    @include box-glow($color-blood-red, 1);
+  }
+}

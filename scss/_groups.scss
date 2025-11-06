@@ -1,0 +1,56 @@
+// HackerTerminal Groups Styles
+
+.groups {
+  max-width: 1400px;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-lg;
+  
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+    
+    .group-card {
+      background: $color-card-bg;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: $spacing-lg;
+      transition: all $transition-normal;
+      
+      &:hover {
+        @include box-glow($color-terminal-green, 0.8);
+        transform: translateY(-5px);
+      }
+      
+      .group-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        @include terminal-border($color-terminal-green);
+        margin-bottom: $spacing-md;
+      }
+      
+      .group-name {
+        font-size: 1.3rem;
+        color: $color-terminal-green;
+        margin-bottom: $spacing-sm;
+        @include neon-glow($color-terminal-green, 0.4);
+      }
+      
+      .group-description {
+        color: $color-text-secondary;
+        margin-bottom: $spacing-md;
+        font-size: 0.9rem;
+      }
+      
+      .group-stats {
+        display: flex;
+        justify-content: space-between;
+        color: $color-text-muted;
+        font-size: 0.85rem;
+        padding-top: $spacing-md;
+        border-top: 1px solid $color-border;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// HackerTerminal Breadcrumbs
+
+.breadcrumbs {
+  display: flex;
+  gap: $spacing-sm;
+  padding: $spacing-md 0;
+  font-size: 0.9rem;
+  color: $color-text-muted;
+  
+  a {
+    color: $color-text-secondary;
+    
+    &:hover {
+      color: $color-terminal-green;
+    }
+  }
+  
+  .separator {
+    color: $color-terminal-green;
+    
+    &::before {
+      content: '>';
+    }
+  }
+  
+  .active {
+    color: $color-terminal-green;
+  }
+}

@@ -1,0 +1,18 @@
+// HackerTerminal NProgress Loading Bar
+
+#nprogress {
+  .bar {
+    background: $color-terminal-green;
+    @include box-glow($color-terminal-green, 1);
+    height: 3px;
+  }
+  
+  .peg {
+    box-shadow: 0 0 10px $color-terminal-green, 0 0 5px $color-terminal-green;
+  }
+  
+  .spinner-icon {
+    border-top-color: $color-terminal-green;
+    border-left-color: $color-terminal-green;
+  }
+}

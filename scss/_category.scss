@@ -1,85 +1,118 @@
-// Category Styles
+// HackerTerminal Category Styles
 
-.categories-list {
-  display: grid;
-  gap: $spacing-lg;
+.category {
+  max-width: 1400px;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-lg;
   
-  .category-item {
-    @include terminal-border;
-    padding: $spacing-lg;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: $spacing-lg;
-    align-items: center;
-    transition: all $transition-normal;
+  .category-header {
+    background: $color-card-bg;
+    @include terminal-border($color-terminal-green);
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    border-radius: $radius-md;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
     
-    &:hover {
-      @include glow-effect($neon-green, 0.3);
-      transform: translateX(4px);
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba($color-terminal-green, 0.1),
+        transparent
+      );
+      animation: slide-in-right 2s infinite;
     }
     
-    .category-icon {
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba($neon-green, 0.1);
-      border: 2px solid $neon-green;
+    h1 {
+      font-size: 3rem;
+      margin-bottom: $spacing-md;
+    }
+    
+    .category-description {
+      color: $color-text-secondary;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+  
+  .topics-list {
+    .topic-item {
+      background: $color-card-bg;
+      border: 1px solid $color-border;
+      border-left: 3px solid $color-terminal-green;
+      padding: $spacing-lg;
+      margin-bottom: $spacing-md;
       border-radius: $radius-md;
-      font-size: 1.8rem;
-      @include glow-effect($neon-green, 0.4);
-    }
-    
-    .category-content {
-      .category-name {
-        font-family: $font-mono;
-        font-size: 1.3rem;
-        @include neon-text($neon-green);
-        margin-bottom: $spacing-xs;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all $transition-normal;
+      
+      &:hover {
+        @include box-glow($color-terminal-green, 0.8);
+        transform: translateX(5px);
+        border-left-width: 5px;
       }
       
-      .category-description {
-        color: $text-secondary;
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-      
-      .category-meta {
-        display: flex;
-        gap: $spacing-md;
-        margin-top: $spacing-sm;
-        font-size: 0.85rem;
-        color: $text-muted;
-        font-family: $font-mono;
+      .topic-info {
+        flex: 1;
         
-        span {
-          &::before {
-            content: '• ';
-            color: $neon-cyan;
+        .topic-title {
+          font-size: 1.2rem;
+          color: $color-terminal-green;
+          margin-bottom: $spacing-sm;
+          @include neon-glow($color-terminal-green, 0.4);
+          
+          &:hover {
+            @include neon-glow($color-terminal-green, 0.8);
+          }
+        }
+        
+        .topic-meta {
+          display: flex;
+          gap: $spacing-md;
+          color: $color-text-muted;
+          font-size: 0.85rem;
+          
+          .meta-item {
+            &::before {
+              content: '//';
+              color: $color-terminal-green;
+              margin-right: $spacing-xs;
+            }
           }
         }
       }
-    }
-    
-    .category-stats {
-      text-align: right;
       
-      .stat {
-        display: block;
-        font-family: $font-mono;
-        margin-bottom: $spacing-xs;
+      .topic-stats {
+        display: flex;
+        gap: $spacing-lg;
         
-        .number {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: $neon-cyan;
-        }
-        
-        .label {
-          font-size: 0.8rem;
-          color: $text-muted;
-          text-transform: uppercase;
+        .stat {
+          text-align: center;
+          
+          .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            color: $color-terminal-green;
+            font-weight: 700;
+            @include neon-glow($color-terminal-green, 0.5);
+          }
+          
+          .stat-label {
+            display: block;
+            font-size: 0.75rem;
+            color: $color-text-muted;
+            text-transform: uppercase;
+          }
         }
       }
     }

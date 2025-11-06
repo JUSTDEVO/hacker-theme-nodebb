@@ -1,118 +1,70 @@
-// Sidebar Styles
+// HackerTerminal Sidebar Styles
 
 .sidebar {
-  @include terminal-border;
+  background: $color-void;
+  border-right: 2px solid $color-terminal-green;
+  @include box-glow($color-terminal-green, 0.3);
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
   padding: $spacing-lg;
+  overflow-y: auto;
+  z-index: $z-dropdown;
   
-  .sidebar-section {
+  .sidebar-header {
     margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $color-border;
     
-    &:last-child {
+    h2 {
+      font-size: 1.2rem;
       margin-bottom: 0;
     }
   }
   
-  .sidebar-title {
-    font-family: $font-mono;
-    font-size: 1.1rem;
-    @include neon-text($neon-cyan);
-    margin-bottom: $spacing-md;
-    padding-bottom: $spacing-sm;
-    border-bottom: 1px solid $border-color;
-    
-    &::before {
-      content: '# ';
-      color: $neon-green;
-    }
-  }
-  
-  .category-list {
+  .sidebar-menu {
     list-style: none;
     
     li {
       margin-bottom: $spacing-sm;
       
       a {
-        display: flex;
-        align-items: center;
-        gap: $spacing-sm;
-        padding: $spacing-sm;
-        border-radius: $radius-sm;
+        display: block;
+        padding: $spacing-sm $spacing-md;
+        color: $color-text-secondary;
+        border-left: 2px solid transparent;
         transition: all $transition-fast;
         
         &:hover {
-          background: rgba($neon-green, 0.1);
-          padding-left: $spacing-md;
+          color: $color-terminal-green;
+          border-left-color: $color-terminal-green;
+          background: rgba($color-terminal-green, 0.05);
+          padding-left: $spacing-lg;
         }
         
-        .icon {
-          color: $neon-cyan;
-        }
-        
-        .count {
-          margin-left: auto;
-          font-family: $font-mono;
-          font-size: 0.85rem;
-          color: $text-muted;
+        &.active {
+          color: $color-terminal-green;
+          border-left-color: $color-terminal-green;
+          background: rgba($color-terminal-green, 0.1);
+          @include neon-glow($color-terminal-green, 0.3);
         }
       }
     }
   }
   
-  .online-users {
-    .user-item {
-      display: flex;
-      align-items: center;
-      gap: $spacing-sm;
-      padding: $spacing-sm;
-      margin-bottom: $spacing-sm;
-      border-radius: $radius-sm;
-      
-      &:hover {
-        background: rgba($neon-cyan, 0.1);
-      }
-      
-      .status-indicator {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: $success;
-        box-shadow: 0 0 8px $success;
-        animation: pulse 2s infinite;
-      }
-      
-      .username {
-        font-family: $font-mono;
-        font-size: 0.9rem;
-      }
-    }
-  }
-  
-  .stats-widget {
-    @include glass-effect;
-    padding: $spacing-md;
+  .sidebar-widget {
+    background: $color-card-bg;
+    border: 1px solid $color-border;
     border-radius: $radius-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-lg;
     
-    .stat-item {
-      display: flex;
-      justify-content: space-between;
-      padding: $spacing-sm 0;
-      border-bottom: 1px solid $divider-color;
-      
-      &:last-child {
-        border-bottom: none;
-      }
-      
-      .label {
-        color: $text-secondary;
-        font-size: 0.9rem;
-      }
-      
-      .value {
-        font-family: $font-mono;
-        color: $neon-green;
-        font-weight: 600;
-      }
+    h3 {
+      font-size: 1rem;
+      margin-bottom: $spacing-md;
+      color: $color-terminal-green;
     }
   }
 }

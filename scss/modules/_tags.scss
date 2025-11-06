@@ -1,0 +1,25 @@
+// HackerTerminal Tags
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  
+  .tag {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    background: transparent;
+    @include terminal-border($color-terminal-green);
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $color-terminal-green;
+    transition: all $transition-fast;
+    
+    &:hover {
+      background: rgba($color-terminal-green, 0.1);
+      @include box-glow($color-terminal-green, 0.8);
+    }
+  }
+}

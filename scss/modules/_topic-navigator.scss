@@ -1,0 +1,31 @@
+// HackerTerminal Topic Navigator
+
+.topic-navigator {
+  position: fixed;
+  right: $spacing-lg;
+  top: 50%;
+  transform: translateY(-50%);
+  background: $color-void;
+  @include terminal-border($color-terminal-green);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  z-index: $z-dropdown;
+  
+  .nav-item {
+    display: block;
+    padding: $spacing-sm;
+    color: $color-text-muted;
+    font-size: 0.85rem;
+    transition: all $transition-fast;
+    
+    &:hover {
+      color: $color-terminal-green;
+      padding-left: $spacing-md;
+    }
+    
+    &.active {
+      color: $color-terminal-green;
+      @include neon-glow($color-terminal-green, 0.5);
+    }
+  }
+}

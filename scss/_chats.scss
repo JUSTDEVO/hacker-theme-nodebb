@@ -1,175 +1,88 @@
-// Chat Styles
+// HackerTerminal Chat Styles
 
-.chats-page {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: $spacing-lg;
-  height: calc(100vh - 200px);
+.chat-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  max-width: 1400px;
+  margin: 0 auto;
   
   .chat-list {
-    @include terminal-border;
+    width: 300px;
+    background: $color-void;
+    border-right: 2px solid $color-terminal-green;
     overflow-y: auto;
-    @include scrollbar-style;
     
     .chat-item {
       padding: $spacing-md;
-      border-bottom: 1px solid $border-color;
+      border-bottom: 1px solid $color-border;
       cursor: pointer;
       transition: all $transition-fast;
       
-      &:hover, &.active {
-        background: rgba($neon-green, 0.1);
+      &:hover {
+        background: $color-hover-bg;
+        border-left: 3px solid $color-terminal-green;
       }
       
-      &.unread {
-        border-left: 4px solid $neon-green;
-        
-        .unread-badge {
-          background: $neon-green;
-          color: $bg-primary;
-          padding: 2px 6px;
-          border-radius: 50%;
-          font-size: 0.7rem;
-          font-family: $font-mono;
-        }
-      }
-      
-      .chat-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: $spacing-xs;
-        
-        .chat-name {
-          font-family: $font-mono;
-          font-weight: 600;
-          color: $neon-cyan;
-        }
-        
-        .chat-time {
-          font-size: 0.75rem;
-          color: $text-muted;
-        }
-      }
-      
-      .chat-preview {
-        font-size: 0.9rem;
-        color: $text-secondary;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      &.active {
+        background: rgba($color-terminal-green, 0.1);
+        border-left: 3px solid $color-terminal-green;
       }
     }
   }
   
   .chat-window {
-    @include terminal-border;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    
-    .chat-header {
-      padding: $spacing-md $spacing-lg;
-      border-bottom: 2px solid $border-color;
-      
-      .chat-title {
-        font-family: $font-mono;
-        font-size: 1.3rem;
-        @include neon-text($neon-green);
-      }
-    }
+    background: $color-black;
     
     .chat-messages {
       flex: 1;
-      padding: $spacing-lg;
       overflow-y: auto;
-      @include scrollbar-style;
+      padding: $spacing-lg;
       
       .message {
-        margin-bottom: $spacing-lg;
-        display: flex;
-        gap: $spacing-md;
+        margin-bottom: $spacing-md;
+        padding: $spacing-md;
+        background: $color-card-bg;
+        border-left: 3px solid $color-terminal-green;
+        border-radius: $radius-md;
         
         &.own-message {
-          flex-direction: row-reverse;
-          
-          .message-content {
-            background: rgba($neon-green, 0.2);
-            border-color: $neon-green;
-          }
+          border-left-color: $color-cyber-purple;
+          margin-left: auto;
+          max-width: 70%;
         }
         
-        .message-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 2px solid $neon-cyan;
-          flex-shrink: 0;
+        .message-author {
+          color: $color-terminal-green;
+          font-weight: 700;
+          margin-bottom: $spacing-xs;
         }
         
         .message-content {
-          max-width: 70%;
-          padding: $spacing-md;
-          background: $bg-tertiary;
-          border: 1px solid $border-color;
-          border-radius: $radius-md;
-          
-          .message-author {
-            font-family: $font-mono;
-            font-size: 0.85rem;
-            color: $neon-cyan;
-            margin-bottom: $spacing-xs;
-          }
-          
-          .message-text {
-            color: $text-primary;
-            line-height: 1.6;
-          }
-          
-          .message-time {
-            font-family: $font-mono;
-            font-size: 0.75rem;
-            color: $text-muted;
-            margin-top: $spacing-xs;
-          }
+          color: $color-text-secondary;
+        }
+        
+        .message-time {
+          color: $color-text-muted;
+          font-size: 0.75rem;
+          margin-top: $spacing-xs;
         }
       }
     }
     
     .chat-input {
-      padding: $spacing-md $spacing-lg;
-      border-top: 2px solid $border-color;
-      display: flex;
-      gap: $spacing-md;
+      padding: $spacing-lg;
+      border-top: 2px solid $color-terminal-green;
+      background: $color-void;
       
-      input {
-        flex: 1;
-        padding: $spacing-sm $spacing-md;
-        background: $bg-tertiary;
-        border: 1px solid $border-color;
-        border-radius: $radius-md;
-        color: $text-primary;
-        font-family: $font-mono;
+      form {
+        display: flex;
+        gap: $spacing-md;
         
-        &:focus {
-          outline: none;
-          border-color: $neon-green;
-          @include glow-effect($neon-green, 0.4);
-        }
-      }
-      
-      button {
-        padding: $spacing-sm $spacing-lg;
-        background: $neon-green;
-        color: $bg-primary;
-        border: none;
-        border-radius: $radius-md;
-        font-family: $font-mono;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all $transition-fast;
-        
-        &:hover {
-          @include glow-effect($neon-green, 0.6);
-          transform: translateY(-2px);
+        input {
+          flex: 1;
         }
       }
     }

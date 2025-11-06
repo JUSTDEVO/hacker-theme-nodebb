@@ -1,0 +1,43 @@
+// HackerTerminal Pagination
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-sm;
+  margin: $spacing-xl 0;
+  
+  .page-item {
+    a {
+      display: block;
+      padding: $spacing-sm $spacing-md;
+      background: transparent;
+      @include terminal-border($color-terminal-green);
+      border-radius: $radius-sm;
+      color: $color-terminal-green;
+      min-width: 40px;
+      text-align: center;
+      transition: all $transition-fast;
+      
+      &:hover {
+        background: rgba($color-terminal-green, 0.1);
+        @include box-glow($color-terminal-green, 0.8);
+      }
+    }
+    
+    &.active a {
+      background: $color-terminal-green;
+      color: $color-black;
+      @include box-glow($color-terminal-green, 1.2);
+    }
+    
+    &.disabled a {
+      opacity: 0.3;
+      cursor: not-allowed;
+      
+      &:hover {
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+}

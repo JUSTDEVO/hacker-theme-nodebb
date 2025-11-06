@@ -1,14 +1,35 @@
-// Font Imports
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+// HackerTerminal Fonts - Terminal/Monospace aesthetic
 
-// Font Face Declarations
+// Fira Code - Primary monospace font for terminal feel
 @font-face {
   font-family: 'Fira Code';
+  src: url('/assets/fira-code/fira-code-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'JetBrains Mono';
+  font-family: 'Fira Code';
+  src: url('/assets/fira-code/fira-code-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/assets/fira-code/fira-code-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Share Tech Mono - Secondary terminal font
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('/assets/share-tech-mono/share-tech-mono-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }

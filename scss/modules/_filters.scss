@@ -1,0 +1,34 @@
+// HackerTerminal Filters
+
+.filters {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+  
+  .filter-item {
+    select,
+    input {
+      min-width: 150px;
+    }
+  }
+  
+  .filter-btn {
+    padding: $spacing-sm $spacing-lg;
+    background: transparent;
+    @include terminal-border($color-terminal-green);
+    color: $color-terminal-green;
+    cursor: pointer;
+    transition: all $transition-fast;
+    
+    &:hover {
+      background: rgba($color-terminal-green, 0.1);
+      @include box-glow($color-terminal-green, 0.8);
+    }
+    
+    &.active {
+      background: $color-terminal-green;
+      color: $color-black;
+    }
+  }
+}

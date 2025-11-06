@@ -1,0 +1,73 @@
+// HackerTerminal Topics List
+
+.topics-list {
+  .topic-row {
+    background: $color-card-bg;
+    border: 1px solid $color-border;
+    border-left: 3px solid $color-terminal-green;
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-sm;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    transition: all $transition-normal;
+    
+    &:hover {
+      @include box-glow($color-terminal-green, 0.6);
+      transform: translateX(5px);
+    }
+    
+    .topic-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include terminal-border($color-terminal-green);
+      border-radius: 50%;
+      color: $color-terminal-green;
+    }
+    
+    .topic-content {
+      flex: 1;
+      
+      .topic-title {
+        color: $color-terminal-green;
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+        
+        &:hover {
+          @include neon-glow($color-terminal-green, 0.6);
+        }
+      }
+      
+      .topic-info {
+        display: flex;
+        gap: $spacing-md;
+        color: $color-text-muted;
+        font-size: 0.85rem;
+      }
+    }
+    
+    .topic-stats {
+      display: flex;
+      gap: $spacing-lg;
+      text-align: center;
+      
+      .stat {
+        .value {
+          display: block;
+          color: $color-terminal-green;
+          font-weight: 700;
+        }
+        
+        .label {
+          display: block;
+          color: $color-text-muted;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
