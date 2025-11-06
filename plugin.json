@@ -1,5 +1,5 @@
 {
-  "id": "nodebb-theme-hacker",
+  "id": "nodebb-theme-hackerterminal",
   "hooks": [
     { "hook": "static:app.load", "method": "init" },
     { "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
@@ -10,14 +10,14 @@
     { "hook": "filter:user.profileMenu", "method": "addProfileItem" },
     { "hook": "filter:middleware.renderHeader", "method": "filterMiddlewareRenderHeader" }
   ],
-  "scripts": ["public/hacker.js"],
+  "scripts": ["public/hackerterminal.js"],
   "modules": {
-    "../admin/plugins/hacker.js": "public/admin.js",
+    "../admin/plugins/hackerterminal.js": "public/admin.js",
     "../client/account/theme.js": "public/settings.js"
   },
   "staticDirs": {
     "fira-code": "node_modules/@fontsource/fira-code/files",
-    "jetbrains-mono": "node_modules/@fontsource/jetbrains-mono/files"
+    "share-tech-mono": "node_modules/@fontsource/share-tech-mono/files"
   },
   "languages": "languages"
 }

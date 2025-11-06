@@ -1,11 +1,7 @@
 {
-  "id": "nodebb-theme-hacker",
-  "name": "Hacker Terminal",
-  "description": "Epic dark mode hacker-themed NodeBB forum with cyberpunk aesthetics and neon accents",
-  "url": "https://github.com/JUSTDEVO/nodebb-theme-hacker",
-  "screenshot": "screenshot.png",
-  "version": "1.0.0",
-  "nbbpm": {
-    "compatibility": "^4.0.0"
-  }
+  "id": "nodebb-theme-hackerterminal",
+  "name": "HackerTerminal",
+  "description": "A dark horror-inspired hacker terminal theme with neon accents, glitch effects, and cyberpunk aesthetics. Immerse yourself in the digital underground.",
+  "url": "https://github.com/JUSTDEVO/hacker-theme-nodebb",
+  "screenshot": "screenshot.png"
 }
