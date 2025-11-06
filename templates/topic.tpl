@@ -1,118 +1,144 @@
-<!-- IMPORT header.tpl -->
+<!-- IMPORT partials/breadcrumbs-json-ld.tpl -->
+{{{ if config.theme.enableBreadcrumbs }}}
+<!-- IMPORT partials/breadcrumbs.tpl -->
+{{{ end }}}
+{{{ if widgets.header.length }}}
+<div data-widget-area="header">
+{{{each widgets.header}}}
+{{widgets.header.html}}
+{{{end}}}
+</div>
+{{{ end }}}
 
-<div class="topic-page" style="padding: 40px 0;">
-    <div class="topic-header" style="margin-bottom: 30px;">
-        <h1 style="font-size: 28px; font-weight: 700; color: #e0e6ed; margin-bottom: 15px;">
-            {{{if locked}}}
-            <i class="fa fa-lock" style="color: #ff0055; margin-right: 10px;"></i>
-            {{{end}}}
-            {{{if pinned}}}
-            <i class="fa fa-thumbtack" style="color: #00d9ff; margin-right: 10px;"></i>
-            {{{end}}}
-            {title}
-        </h1>
-        
-        <div style="display: flex; gap: 20px; align-items: center; color: #8b95a5; font-size: 13px;">
-            <span>
-                <i class="fa fa-user" style="margin-right: 5px;"></i>
-                Started by <span style="color: #00d9ff; font-weight: 600;">{./user.username}</span>
-            </span>
-            <span>
-                <i class="fa fa-clock" style="margin-right: 5px;"></i>
-                {./timestamp}
-            </span>
-            <span>
-                <i class="fa fa-eye" style="margin-right: 5px;"></i>
-                {./viewcount} views
-            </span>
-        </div>
-        
-        {{{if tags.length}}}
-        <div style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
-            {{{each tags}}}
-            <a href="{config.relative_path}/tags/{./value}" class="badge badge-primary" style="text-decoration: none;">
-                <i class="fa fa-tag"></i> {./value}
-            </a>
-            {{{end}}}
-        </div>
-        {{{end}}}
-    </div>
-    
-    <div class="posts-container">
-        {{{each posts}}}
-        <div class="post-container" data-pid="{./pid}">
-            <div class="post-header">
-                <img src="{./user.picture}" alt="{./user.username}" class="post-avatar" />
-                
-                <div class="post-author-info">
-                    <a href="{config.relative_path}/user/{./user.userslug}" class="username">
-                        {./user.username}
-                    </a>
-                    <div class="user-title">
-                        {{{if ./user.banned}}}
-                        <span style="color: #ff0055;">BANNED</span>
-                        {{{else}}}
-                        {./user.reputation} reputation
-                        {{{end}}}
-                    </div>
-                </div>
-                
-                <div class="post-timestamp">
-                    <i class="fa fa-clock"></i> {./timestamp}
-                </div>
-            </div>
-            
-            <div class="post-content">
-                {./content}
-            </div>
-            
-            <div class="post-footer">
-                {{{if privileges.topics:reply}}}
-                <button class="post-action" data-action="reply">
-                    <i class="fa fa-reply"></i> Reply
-                </button>
-                {{{end}}}
-                
-                <button class="post-action" data-action="upvote">
-                    <i class="fa fa-arrow-up"></i> Upvote ({./votes})
-                </button>
-                
-                {{{if ./display_edit_tools}}}
-                <button class="post-action" data-action="edit">
-                    <i class="fa fa-edit"></i> Edit
-                </button>
-                <button class="post-action" data-action="delete">
-                    <i class="fa fa-trash"></i> Delete
-                </button>
-                {{{end}}}
-                
-                <button class="post-action" data-action="share">
-                    <i class="fa fa-share"></i> Share
-                </button>
-            </div>
-        </div>
-        {{{end}}}
-    </div>
-    
-    {{{if privileges.topics:reply}}}
-    <div class="card" style="margin-top: 30px;">
-        <div class="card-header">
-            <i class="fa fa-reply"></i> Post a Reply
-        </div>
-        <div style="padding: 20px;">
-            <form id="reply-form">
-                <div class="form-group">
-                    <textarea id="reply-content" placeholder="Type your reply here..." rows="6"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-paper-plane"></i> Submit Reply
-                </button>
-            </form>
-        </div>
-    </div>
-    {{{end}}}
-    
-    <!-- IMPORT partials/paginator.tpl -->
+<div class="flex-fill" itemid="{url}" itemscope itemtype="https://schema.org/DiscussionForumPosting">
+	<meta itemprop="headline" content="{escape(titleRaw)}">
+	<meta itemprop="text" content="{escape(titleRaw)}">
+	<meta itemprop="url" content="{url}">
+	<meta itemprop="datePublished" content="{timestampISO}">
+	<meta itemprop="dateModified" content="{lastposttimeISO}">
+	<div itemprop="author" itemscope itemtype="https://schema.org/Person">
+		<meta itemprop="name" content="{author.username}">
+		{{{ if author.userslug }}}<meta itemprop="url" content="{config.relative_path}/user/{author.userslug}">{{{ end }}}
+	</div>
+
+	<div class="d-flex flex-column gap-3">
+		<div class="d-flex gap-2 flex-wrap flex-column flex-md-row justify-content-between">
+			<div class="d-flex flex-column gap-3">
+				<h1 component="post/header" class="tracking-tight fw-semibold fs-3 mb-0 text-break {{{ if config.theme.centerHeaderElements }}}text-center{{{ end }}}">
+					<span class="topic-title" component="topic/title">{title}</span>
+				</h1>
+
+				<div class="topic-info d-flex gap-2 align-items-center flex-wrap {{{ if config.theme.centerHeaderElements }}}justify-content-center{{{ end }}}">
+					<span component="topic/labels" class="d-flex gap-2 {{{ if (!scheduled && (!pinned && (!locked && (!icons.length && (!oldCid || (oldCid == "-1")))))) }}}hidden{{{ end }}}">
+						<span component="topic/scheduled" class="badge badge border border-gray-300 text-body {{{ if !scheduled }}}hidden{{{ end }}}">
+							<i class="fa fa-clock-o"></i> [[topic:scheduled]]
+						</span>
+						<span component="topic/pinned" class="badge badge border border-gray-300 text-body {{{ if (scheduled || !pinned) }}}hidden{{{ end }}}">
+							<i class="fa fa-thumb-tack"></i> {{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {isoTimeToLocaleString(./pinExpiryISO, config.userLang)}]]{{{ end }}}
+						</span>
+						<span component="topic/locked" class="badge badge border border-gray-300 text-body {{{ if !locked }}}hidden{{{ end }}}">
+							<i class="fa fa-lock"></i> [[topic:locked]]
+						</span>
+						<a component="topic/moved" href="{config.relative_path}/category/{oldCid}" class="badge badge border border-gray-300 text-body text-decoration-none {{{ if (!oldCid || (oldCid == "-1")) }}}hidden{{{ end }}}">
+							<i class="fa fa-arrow-circle-right"></i> {{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}
+						</a>
+						{{{each icons}}}<span class="lh-1">{@value}</span>{{{end}}}
+					</span>
+					{buildCategoryLabel(category, "a", "border")}
+					<div data-tid="{./tid}" component="topic/tags" class="lh-1 tags tag-list d-flex flex-wrap hidden-xs hidden-empty gap-2"><!-- IMPORT partials/topic/tags.tpl --></div>
+					<div class="d-flex gap-2"><!-- IMPORT partials/topic/stats.tpl --></div>
+				</div>
+			</div>
+			<div class="d-flex flex-wrap gap-2 align-items-start mt-2 hidden-empty {{{ if greaterthan(thumbs.length, "4") }}}thumbs-collapsed{{{ end }}}" component="topic/thumb/list"><!-- IMPORT partials/topic/thumbs.tpl --></div>
+		</div>
+
+		<div class="row mb-4 mb-lg-0">
+			<div class="topic {{{ if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}}">
+				<!-- IMPORT partials/post_bar.tpl -->
+				{{{ if merger }}}
+				<!-- IMPORT partials/topic/merged-message.tpl -->
+				{{{ end }}}
+				{{{ if forker }}}
+				<!-- IMPORT partials/topic/forked-message.tpl -->
+				{{{ end }}}
+				{{{ if !scheduled }}}
+				<!-- IMPORT partials/topic/deleted-message.tpl -->
+				{{{ end }}}
+
+				<div class="d-flex gap-0 gap-lg-5">
+					<div class="posts-container" style="min-width: 0;">
+						<ul component="topic" class="posts timeline list-unstyled p-0 py-3" style="min-width: 0;" data-tid="{tid}" data-cid="{cid}">
+						{{{ each posts }}}
+							<li component="post" class="{{{ if (./index != 0) }}}pt-4{{{ end }}} {{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
+								<a component="post/anchor" data-index="{./index}" id="{increment(./index, "1")}"></a>
+								<meta itemprop="datePublished" content="{./timestampISO}">
+								{{{ if ./editedISO }}}
+								<meta itemprop="dateModified" content="{./editedISO}">
+								{{{ end }}}
+
+								<!-- IMPORT partials/topic/post.tpl -->
+							</li>
+							{{{ if (config.topicPostSort != "most_votes") }}}
+							{{{ each ./events}}}<!-- IMPORT partials/topic/event.tpl -->{{{ end }}}
+							{{{ end }}}
+						{{{ end }}}
+						</ul>
+						{{{ if browsingUsers }}}
+						<div class="visible-xs">
+							<!-- IMPORT partials/topic/browsing-users.tpl -->
+							<hr/>
+						</div>
+						{{{ end }}}
+						{{{ if config.theme.enableQuickReply }}}
+						<!-- IMPORT partials/topic/quickreply.tpl -->
+						{{{ end }}}
+					</div>
+					<div class="d-flex d-none d-lg-block flex-grow-1 mt-2">
+						<div class="sticky-top" style="{{{ if config.theme.topicSidebarTools }}}top:2rem;{{{ else }}}top:6rem; {{{ end }}} z-index:1;">
+							<div class="d-flex flex-column gap-3 align-items-end">
+								{{{ if config.theme.topicSidebarTools }}}
+								<div class="d-flex flex-column gap-2" style="width: 170px;">
+									<!-- IMPORT partials/topic/reply-button.tpl -->
+									<!-- IMPORT partials/topic/mark-unread.tpl -->
+									<!-- IMPORT partials/topic/watch.tpl -->
+									<!-- IMPORT partials/topic/sort.tpl -->
+									<!-- IMPORT partials/topic/tools.tpl -->
+								</div>
+								{{{ end }}}
+								{{{ if config.theme.topicSidebarTools }}}<hr class="my-0" style="min-width: 170px;"/>{{{ end }}}
+								<!-- IMPORT partials/topic/navigator.tpl -->
+								{{{ if config.theme.topicSidebarTools }}}<hr class="my-0" style="min-width: 170px;" />{{{ end }}}
+								{{{ if browsingUsers }}}
+								<div class="d-flex flex-column ps-2 hidden-xs" style="min-width: 170px;">
+								<!-- IMPORT partials/topic/browsing-users.tpl -->
+								</div>
+								{{{ end }}}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{{{ if config.usePagination }}}
+				<!-- IMPORT partials/paginator.tpl -->
+				{{{ end }}}
+			</div>
+			<div data-widget-area="sidebar" class="col-lg-3 col-sm-12 {{{ if !widgets.sidebar.length }}}hidden{{{ end }}}">
+			{{{each widgets.sidebar}}}
+			{{widgets.sidebar.html}}
+			{{{end}}}
+			</div>
+		</div>
+	</div>
 </div>
 
-<!-- IMPORT footer.tpl -->
+<div data-widget-area="footer">
+{{{each widgets.footer}}}
+{{widgets.footer.html}}
+{{{end}}}
+</div>
+
+{{{ if !config.usePagination }}}
+<noscript>
+<!-- IMPORT partials/paginator.tpl -->
+</noscript>
+{{{ end }}}

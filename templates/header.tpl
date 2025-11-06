@@ -1,92 +1,39 @@
 <!DOCTYPE html>
-<html lang="{language}" data-dir="{userLang}" style="direction: {languageDirection};">
+<html lang="{function.localeToHTML, userLang, defaultLang}" {{{if languageDirection}}}data-dir="{languageDirection}" style="direction: {languageDirection};"{{{end}}}>
 <head>
-    <title>{browserTitle}</title>
-    {{{each metaTags}}}
-    <meta{{{each this}}} {key}="{value}"{{{end}}} />
-    {{{end}}}
-    <link rel="stylesheet" type="text/css" href="{relative_path}/assets/stylesheet.css?{config.cache-buster}" />
-    {{{each linkTags}}}
-    <link{{{each this}}} {key}="{value}"{{{end}}} />
-    {{{end}}}
-    <script>
-        var config = JSON.parse('{{configJSON}}');
-        var app = {
-            user: JSON.parse('{{userJSON}}')
-        };
-    </script>
+	<title>{browserTitle}</title>
+	{{{each metaTags}}}{function.buildMetaTag}{{{end}}}
+	<link rel="stylesheet" type="text/css" href="{relative_path}/assets/client{{{if bootswatchSkin}}}-{bootswatchSkin}{{{end}}}{{{ if (languageDirection=="rtl") }}}-rtl{{{ end }}}.css?{config.cache-buster}" />
+	{{{each linkTags}}}{function.buildLinkTag}{{{end}}}
+
+	<script>
+		var config = JSON.parse('{{configJSON}}');
+		var app = {
+			user: JSON.parse('{{userJSON}}')
+		};
+		document.documentElement.style.setProperty('--panel-offset', `0px`);
+	</script>
+
+	{{{if useCustomHTML}}}
+	{{customHTML}}
+	{{{end}}}
+	{{{if useCustomCSS}}}
+	<style>{{customCSS}}</style>
+	{{{end}}}
 </head>
-<body class="{bodyClass}">
-    <nav id="header" class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="{relative_path}/">
-                {{{if brand:logo}}}
-                <img alt="{brand:logo:alt}" src="{brand:logo}" />
-                {{{else}}}
-                {title}
-                {{{end}}}
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/">
-                            <i class="fa fa-home"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/categories">
-                            <i class="fa fa-list"></i> Categories
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/recent">
-                            <i class="fa fa-clock"></i> Recent
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/tags">
-                            <i class="fa fa-tags"></i> Tags
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/users">
-                            <i class="fa fa-users"></i> Users
-                        </a>
-                    </li>
-                    
-                    {{{if user.uid}}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <img src="{user.picture}" alt="{user.username}" style="width: 24px; height: 24px; border-radius: 4px; margin-right: 5px;" />
-                            {user.username}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{relative_path}/user/{user.userslug}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{relative_path}/user/{user.userslug}/settings">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" component="user/logout">Logout</a></li>
-                        </ul>
-                    </li>
-                    {{{else}}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{relative_path}/login">
-                            <i class="fa fa-sign-in"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="{relative_path}/register">
-                            Register
-                        </a>
-                    </li>
-                    {{{end}}}
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container">
+
+<body class="{bodyClass} skin-{{{if bootswatchSkin}}}{bootswatchSkin}{{{else}}}noskin{{{end}}}">
+	<a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 m-3 bg-body" style="z-index: 1021;" href="#content">[[global:skip-to-content]]</a>
+
+	{{{ if config.theme.topMobilebar }}}
+	<!-- IMPORT partials/mobile-header.tpl -->
+	{{{ end }}}
+
+	<div class="layout-container d-flex justify-content-between pb-4 pb-md-0">
+		<!-- IMPORT partials/sidebar-left.tpl -->
+
+		<main id="panel" class="d-flex flex-column gap-3 flex-grow-1 mt-3" style="min-width: 0;">
+			<!-- IMPORT partials/header/brand.tpl -->
+			<div class="container-lg px-md-4 d-flex flex-column gap-3 h-100 mb-5 mb-lg-0" id="content">
+			<!-- IMPORT partials/noscript/warning.tpl -->
+			<!-- IMPORT partials/noscript/message.tpl -->
