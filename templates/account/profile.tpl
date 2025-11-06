@@ -1,130 +1,92 @@
-<!-- IMPORT header.tpl -->
+<!-- IMPORT partials/account/header.tpl -->
 
-<div class="account-page" style="padding: 40px 0;">
-    <div class="account-header">
-        <div style="display: flex; gap: 30px; align-items: center;">
-            <img src="{picture}" alt="{username}" class="profile-avatar" />
-            
-            <div class="profile-info">
-                <h1 class="username">{username}</h1>
-                
-                {{{if aboutme}}}
-                <p style="color: #8b95a5; font-size: 14px; margin-bottom: 15px;">{aboutme}</p>
-                {{{end}}}
-                
-                <div class="user-stats">
-                    <div class="stat">
-                        <div class="stat-value">{postcount}</div>
-                        <div class="stat-label">Posts</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">{reputation}</div>
-                        <div class="stat-label">Reputation</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">{followerCount}</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">{followingCount}</div>
-                        <div class="stat-label">Following</div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 20px; display: flex; gap: 10px;">
-                    {{{if !isSelf}}}
-                    <button class="btn btn-primary">
-                        <i class="fa fa-user-plus"></i> Follow
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i class="fa fa-envelope"></i> Message
-                    </button>
-                    {{{else}}}
-                    <a href="{config.relative_path}/user/{userslug}/settings" class="btn btn-primary">
-                        <i class="fa fa-cog"></i> Edit Profile
-                    </a>
-                    {{{end}}}
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px;">
-        <div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-comments"></i> Recent Posts
-                </div>
-                <div style="padding: 20px;">
-                    {{{if posts.length}}}
-                    {{{each posts}}}
-                    <div style="padding: 15px 0; border-bottom: 1px solid #1e2433;">
-                        <a href="{config.relative_path}/topic/{./topic.slug}" style="color: #e0e6ed; text-decoration: none; font-weight: 600; display: block; margin-bottom: 8px;">
-                            {./topic.title}
-                        </a>
-                        <div style="color: #8b95a5; font-size: 13px;">
-                            {./content}
-                        </div>
-                        <div style="color: #5a6270; font-size: 12px; margin-top: 8px;">
-                            <i class="fa fa-clock"></i> {./timestamp}
-                        </div>
-                    </div>
-                    {{{end}}}
-                    {{{else}}}
-                    <p style="color: #8b95a5; text-align: center; padding: 20px;">No posts yet</p>
-                    {{{end}}}
-                </div>
-            </div>
-        </div>
-        
-        <div>
-            <div class="widget">
-                <div class="widget-title">
-                    <i class="fa fa-info-circle"></i> Information
-                </div>
-                <div class="widget-content">
-                    <div style="margin-bottom: 15px;">
-                        <div style="color: #5a6270; font-size: 11px; text-transform: uppercase; margin-bottom: 5px;">Joined</div>
-                        <div style="color: #e0e6ed;">{joindateISO}</div>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px;">
-                        <div style="color: #5a6270; font-size: 11px; text-transform: uppercase; margin-bottom: 5px;">Last Seen</div>
-                        <div style="color: #e0e6ed;">{lastonlineISO}</div>
-                    </div>
-                    
-                    {{{if email}}}
-                    <div style="margin-bottom: 15px;">
-                        <div style="color: #5a6270; font-size: 11px; text-transform: uppercase; margin-bottom: 5px;">Email</div>
-                        <div style="color: #e0e6ed;">{email}</div>
-                    </div>
-                    {{{end}}}
-                    
-                    {{{if website}}}
-                    <div style="margin-bottom: 15px;">
-                        <div style="color: #5a6270; font-size: 11px; text-transform: uppercase; margin-bottom: 5px;">Website</div>
-                        <a href="{website}" target="_blank" style="color: #00ff88;">{website}</a>
-                    </div>
-                    {{{end}}}
-                </div>
-            </div>
-            
-            {{{if groups.length}}}
-            <div class="widget">
-                <div class="widget-title">
-                    <i class="fa fa-users"></i> Groups
-                </div>
-                <div class="widget-content">
-                    {{{each groups}}}
-                    <span class="badge badge-primary" style="margin: 4px;">
-                        {./name}
-                    </span>
-                    {{{end}}}
-                </div>
-            </div>
-            {{{end}}}
-        </div>
-    </div>
+{{{ if widgets.profile-aboutme-before.length }}}
+<div data-widget-area="profile-aboutme-before">
+{{{each widgets.profile-aboutme-before}}}
+{./html}
+{{{end}}}
+</div>
+{{{ end }}}
+
+{{{ if aboutme }}}
+<div component="aboutme" class="text-sm text-break">
+{aboutmeParsed}
+</div>
+{{{ end }}}
+
+{{{ if widgets.profile-aboutme-after.length }}}
+<div data-widget-area="profile-aboutme-after">
+{{{each widgets.profile-aboutme-after}}}
+{./html}
+{{{end}}}
+</div>
+{{{ end }}}
+
+<div class="account-stats container">
+	<div class="row row-cols-2 row-cols-xl-3 row-cols-xxl-4 g-2 mb-5">
+		{{{ if !reputation:disabled }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100">
+				<span class="stat-label text-xs fw-semibold">[[global:reputation]]</span>
+				<span class="fs-2 ff-secondary" title="{reputation}">{humanReadableNumber(reputation)}</span>
+			</div>
+		</div>
+		{{{ end }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100">
+				<span class="stat-label text-xs fw-semibold">[[user:profile-views]]</span>
+				<span class="fs-2 ff-secondary" title="
+				{profileviews}">{humanReadableNumber(profileviews)}</span>
+			</div>
+		</div>
+
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100 gap-2">
+				<span class="stat-label text-xs fw-semibold"><i class="text-muted fa-solid fa-user-plus"></i> <span>[[user:joined]]</span></span>
+				<span class="timeago text-center text-break w-100 px-2 fs-6 ff-secondary" title="{joindateISO}"></span>
+			</div>
+		</div>
+
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100 gap-2">
+				<span class="stat-label text-xs fw-semibold"><i class="text-muted fa-solid fa-clock"></i> <span>[[user:lastonline]]</span></span>
+				<span class="timeago text-center text-break w-100 px-2 fs-6 ff-secondary" title="{lastonlineISO}"></span>
+			</div>
+		</div>
+
+		{{{ if email }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100 gap-2">
+				<span class="stat-label text-xs fw-semibold"><i class="text-muted fa-solid fa-envelope"></i> <span>[[user:email]]</span> {{{ if emailHidden}}}<span class="text-lowercase">([[global:hidden]])</span>{{{ end }}}</span>
+				<span class="text-sm text-center text-break w-100 px-2 ff-secondary">{email}</span>
+			</div>
+		</div>
+		{{{ end }}}
+
+		{{{ if age }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100 gap-2">
+				<span class="stat-label text-xs fw-semibold"><span><i class="text-muted fa-solid fa-cake-candles"></i> [[user:age]]</span></span>
+				<span class="fs-6 ff-secondary">{age}</span>
+			</div>
+		</div>
+		{{{ end }}}
+
+		{{{ each customUserFields }}}
+		{{{ if ./value }}}
+		<div class="stat">
+			<div class="align-items-center justify-content-center card card-header p-3 border-0 rounded-1 h-100 gap-2">
+				<span class="stat-label text-xs fw-semibold"><span><i class="text-muted {./icon}"></i> {./name}</span></span>
+				{{{ if (./type == "input-link") }}}
+				<a class="text-sm text-center text-break w-100 px-2 ff-secondary text-underline text-reset" href="{./value}" rel="nofollow noreferrer">{./linkValue}</a>
+				{{{ else }}}
+				<span class="text-center {{{ if (./type == "input-number") }}}fs-2{{{else }}}fs-6{{{ end }}} ff-secondary">{./value}</span>
+				{{{ end }}}
+			</div>
+		</div>
+		{{{ end }}}
+		{{{ end }}}
+	</div>
 </div>
 
-<!-- IMPORT footer.tpl -->
+<!-- IMPORT partials/account/footer.tpl -->
