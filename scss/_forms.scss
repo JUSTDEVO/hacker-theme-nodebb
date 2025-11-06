@@ -1,0 +1,92 @@
+// Form Styles
+
+.form-group {
+  margin-bottom: $spacing-lg;
+  
+  label {
+    display: block;
+    font-family: $font-mono;
+    color: $neon-cyan;
+    margin-bottom: $spacing-sm;
+    font-weight: 500;
+    
+    &::before {
+      content: '> ';
+      color: $neon-green;
+    }
+    
+    .required {
+      color: $error;
+    }
+  }
+  
+  input, textarea, select {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    background: $bg-tertiary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    color: $text-primary;
+    font-family: $font-mono;
+    font-size: 0.95rem;
+    transition: all $transition-fast;
+    
+    &:focus {
+      outline: none;
+      border-color: $neon-green;
+      @include glow-effect($neon-green, 0.4);
+    }
+    
+    &::placeholder {
+      color: $text-muted;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+    @include scrollbar-style;
+  }
+  
+  select {
+    cursor: pointer;
+  }
+  
+  .form-text {
+    font-size: 0.85rem;
+    color: $text-muted;
+    margin-top: $spacing-xs;
+  }
+  
+  .form-error {
+    font-size: 0.85rem;
+    color: $error;
+    margin-top: $spacing-xs;
+    font-family: $font-mono;
+  }
+}
+
+.checkbox, .radio {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+  
+  input {
+    width: auto;
+    accent-color: $neon-green;
+  }
+  
+  label {
+    margin: 0;
+    
+    &::before {
+      content: none;
+    }
+  }
+}

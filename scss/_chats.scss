@@ -1,0 +1,177 @@
+// Chat Styles
+
+.chats-page {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: $spacing-lg;
+  height: calc(100vh - 200px);
+  
+  .chat-list {
+    @include terminal-border;
+    overflow-y: auto;
+    @include scrollbar-style;
+    
+    .chat-item {
+      padding: $spacing-md;
+      border-bottom: 1px solid $border-color;
+      cursor: pointer;
+      transition: all $transition-fast;
+      
+      &:hover, &.active {
+        background: rgba($neon-green, 0.1);
+      }
+      
+      &.unread {
+        border-left: 4px solid $neon-green;
+        
+        .unread-badge {
+          background: $neon-green;
+          color: $bg-primary;
+          padding: 2px 6px;
+          border-radius: 50%;
+          font-size: 0.7rem;
+          font-family: $font-mono;
+        }
+      }
+      
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-xs;
+        
+        .chat-name {
+          font-family: $font-mono;
+          font-weight: 600;
+          color: $neon-cyan;
+        }
+        
+        .chat-time {
+          font-size: 0.75rem;
+          color: $text-muted;
+        }
+      }
+      
+      .chat-preview {
+        font-size: 0.9rem;
+        color: $text-secondary;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  
+  .chat-window {
+    @include terminal-border;
+    display: flex;
+    flex-direction: column;
+    
+    .chat-header {
+      padding: $spacing-md $spacing-lg;
+      border-bottom: 2px solid $border-color;
+      
+      .chat-title {
+        font-family: $font-mono;
+        font-size: 1.3rem;
+        @include neon-text($neon-green);
+      }
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: $spacing-lg;
+      overflow-y: auto;
+      @include scrollbar-style;
+      
+      .message {
+        margin-bottom: $spacing-lg;
+        display: flex;
+        gap: $spacing-md;
+        
+        &.own-message {
+          flex-direction: row-reverse;
+          
+          .message-content {
+            background: rgba($neon-green, 0.2);
+            border-color: $neon-green;
+          }
+        }
+        
+        .message-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 2px solid $neon-cyan;
+          flex-shrink: 0;
+        }
+        
+        .message-content {
+          max-width: 70%;
+          padding: $spacing-md;
+          background: $bg-tertiary;
+          border: 1px solid $border-color;
+          border-radius: $radius-md;
+          
+          .message-author {
+            font-family: $font-mono;
+            font-size: 0.85rem;
+            color: $neon-cyan;
+            margin-bottom: $spacing-xs;
+          }
+          
+          .message-text {
+            color: $text-primary;
+            line-height: 1.6;
+          }
+          
+          .message-time {
+            font-family: $font-mono;
+            font-size: 0.75rem;
+            color: $text-muted;
+            margin-top: $spacing-xs;
+          }
+        }
+      }
+    }
+    
+    .chat-input {
+      padding: $spacing-md $spacing-lg;
+      border-top: 2px solid $border-color;
+      display: flex;
+      gap: $spacing-md;
+      
+      input {
+        flex: 1;
+        padding: $spacing-sm $spacing-md;
+        background: $bg-tertiary;
+        border: 1px solid $border-color;
+        border-radius: $radius-md;
+        color: $text-primary;
+        font-family: $font-mono;
+        
+        &:focus {
+          outline: none;
+          border-color: $neon-green;
+          @include glow-effect($neon-green, 0.4);
+        }
+      }
+      
+      button {
+        padding: $spacing-sm $spacing-lg;
+        background: $neon-green;
+        color: $bg-primary;
+        border: none;
+        border-radius: $radius-md;
+        font-family: $font-mono;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-fast;
+        
+        &:hover {
+          @include glow-effect($neon-green, 0.6);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

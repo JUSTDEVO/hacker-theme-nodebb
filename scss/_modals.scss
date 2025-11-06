@@ -1,0 +1,66 @@
+// Modal Styles
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: $z-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  @include terminal-border;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  @include scrollbar-style;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  
+  .modal-header {
+    padding: $spacing-lg;
+    border-bottom: 2px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h3 {
+      font-family: $font-mono;
+      @include neon-text($neon-green);
+      margin: 0;
+    }
+    
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: $text-muted;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color $transition-fast;
+      
+      &:hover {
+        color: $error;
+      }
+    }
+  }
+  
+  .modal-body {
+    padding: $spacing-lg;
+  }
+  
+  .modal-footer {
+    padding: $spacing-lg;
+    border-top: 2px solid $border-color;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+  }
+}

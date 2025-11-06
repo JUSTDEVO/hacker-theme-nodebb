@@ -1,0 +1,130 @@
+// Header Styles
+
+.header {
+  background: rgba($bg-secondary, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid $border-color;
+  padding: $spacing-md 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $neon-green, transparent);
+    animation: scan 3s linear infinite;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-lg;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-family: $font-mono;
+    font-size: 1.5rem;
+    font-weight: 700;
+    @include neon-text($neon-green);
+    
+    &::before {
+      content: '>';
+      color: $neon-cyan;
+      animation: blink 1s infinite;
+    }
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    gap: $spacing-md;
+    
+    a {
+      padding: $spacing-sm $spacing-md;
+      border-radius: $radius-sm;
+      font-family: $font-mono;
+      transition: all $transition-fast;
+      
+      &:hover, &.active {
+        background: rgba($neon-green, 0.1);
+        color: $neon-green;
+        @include glow-effect($neon-green, 0.3);
+      }
+    }
+  }
+  
+  .search-bar {
+    flex: 1;
+    max-width: 500px;
+    
+    input {
+      width: 100%;
+      padding: $spacing-sm $spacing-md;
+      background: $bg-tertiary;
+      border: 1px solid $border-color;
+      border-radius: $radius-md;
+      color: $text-primary;
+      font-family: $font-mono;
+      
+      &:focus {
+        outline: none;
+        border-color: $neon-green;
+        @include glow-effect($neon-green, 0.4);
+      }
+      
+      &::placeholder {
+        color: $text-muted;
+      }
+    }
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    
+    .notification-icon {
+      position: relative;
+      padding: $spacing-sm;
+      
+      .badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $error;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        animation: pulse 2s infinite;
+      }
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid $neon-green;
+      @include glow-effect($neon-green, 0.4);
+      cursor: pointer;
+      transition: all $transition-normal;
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

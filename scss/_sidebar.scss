@@ -1,0 +1,118 @@
+// Sidebar Styles
+
+.sidebar {
+  @include terminal-border;
+  padding: $spacing-lg;
+  
+  .sidebar-section {
+    margin-bottom: $spacing-xl;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .sidebar-title {
+    font-family: $font-mono;
+    font-size: 1.1rem;
+    @include neon-text($neon-cyan);
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid $border-color;
+    
+    &::before {
+      content: '# ';
+      color: $neon-green;
+    }
+  }
+  
+  .category-list {
+    list-style: none;
+    
+    li {
+      margin-bottom: $spacing-sm;
+      
+      a {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        padding: $spacing-sm;
+        border-radius: $radius-sm;
+        transition: all $transition-fast;
+        
+        &:hover {
+          background: rgba($neon-green, 0.1);
+          padding-left: $spacing-md;
+        }
+        
+        .icon {
+          color: $neon-cyan;
+        }
+        
+        .count {
+          margin-left: auto;
+          font-family: $font-mono;
+          font-size: 0.85rem;
+          color: $text-muted;
+        }
+      }
+    }
+  }
+  
+  .online-users {
+    .user-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      padding: $spacing-sm;
+      margin-bottom: $spacing-sm;
+      border-radius: $radius-sm;
+      
+      &:hover {
+        background: rgba($neon-cyan, 0.1);
+      }
+      
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $success;
+        box-shadow: 0 0 8px $success;
+        animation: pulse 2s infinite;
+      }
+      
+      .username {
+        font-family: $font-mono;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .stats-widget {
+    @include glass-effect;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: $spacing-sm 0;
+      border-bottom: 1px solid $divider-color;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .label {
+        color: $text-secondary;
+        font-size: 0.9rem;
+      }
+      
+      .value {
+        font-family: $font-mono;
+        color: $neon-green;
+        font-weight: 600;
+      }
+    }
+  }
+}

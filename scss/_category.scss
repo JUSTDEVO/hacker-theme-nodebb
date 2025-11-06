@@ -1,0 +1,87 @@
+// Category Styles
+
+.categories-list {
+  display: grid;
+  gap: $spacing-lg;
+  
+  .category-item {
+    @include terminal-border;
+    padding: $spacing-lg;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: $spacing-lg;
+    align-items: center;
+    transition: all $transition-normal;
+    
+    &:hover {
+      @include glow-effect($neon-green, 0.3);
+      transform: translateX(4px);
+    }
+    
+    .category-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba($neon-green, 0.1);
+      border: 2px solid $neon-green;
+      border-radius: $radius-md;
+      font-size: 1.8rem;
+      @include glow-effect($neon-green, 0.4);
+    }
+    
+    .category-content {
+      .category-name {
+        font-family: $font-mono;
+        font-size: 1.3rem;
+        @include neon-text($neon-green);
+        margin-bottom: $spacing-xs;
+      }
+      
+      .category-description {
+        color: $text-secondary;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      
+      .category-meta {
+        display: flex;
+        gap: $spacing-md;
+        margin-top: $spacing-sm;
+        font-size: 0.85rem;
+        color: $text-muted;
+        font-family: $font-mono;
+        
+        span {
+          &::before {
+            content: '• ';
+            color: $neon-cyan;
+          }
+        }
+      }
+    }
+    
+    .category-stats {
+      text-align: right;
+      
+      .stat {
+        display: block;
+        font-family: $font-mono;
+        margin-bottom: $spacing-xs;
+        
+        .number {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: $neon-cyan;
+        }
+        
+        .label {
+          font-size: 0.8rem;
+          color: $text-muted;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

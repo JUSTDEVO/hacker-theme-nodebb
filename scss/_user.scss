@@ -1,0 +1,128 @@
+// User Profile Styles
+
+.account-page {
+  .profile-header {
+    @include terminal-border;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+    display: flex;
+    gap: $spacing-xl;
+    align-items: center;
+    
+    .profile-avatar {
+      .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 4px solid $neon-green;
+        @include glow-effect($neon-green, 0.5);
+      }
+    }
+    
+    .profile-info {
+      flex: 1;
+      
+      .username {
+        font-family: $font-mono;
+        font-size: 2.5rem;
+        @include neon-text($neon-green);
+        margin-bottom: $spacing-sm;
+      }
+      
+      .user-title {
+        font-size: 1.1rem;
+        color: $text-secondary;
+        margin-bottom: $spacing-md;
+      }
+      
+      .user-meta {
+        display: flex;
+        gap: $spacing-xl;
+        font-family: $font-mono;
+        
+        .meta-item {
+          .label {
+            font-size: 0.85rem;
+            color: $text-muted;
+            text-transform: uppercase;
+          }
+          
+          .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: $neon-cyan;
+          }
+        }
+      }
+      
+      .user-badges {
+        display: flex;
+        gap: $spacing-sm;
+        margin-top: $spacing-md;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  
+  .profile-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: $spacing-lg;
+    
+    .profile-sidebar {
+      .profile-nav {
+        @include terminal-border;
+        padding: $spacing-md;
+        
+        a {
+          display: flex;
+          align-items: center;
+          gap: $spacing-sm;
+          padding: $spacing-sm $spacing-md;
+          margin-bottom: $spacing-xs;
+          border-radius: $radius-sm;
+          font-family: $font-mono;
+          transition: all $transition-fast;
+          
+          &:hover, &.active {
+            background: rgba($neon-green, 0.1);
+            color: $neon-green;
+            padding-left: $spacing-lg;
+          }
+        }
+      }
+    }
+    
+    .profile-main {
+      .activity-feed {
+        .activity-item {
+          @include terminal-border;
+          padding: $spacing-md;
+          margin-bottom: $spacing-md;
+          
+          .activity-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: $spacing-sm;
+            
+            .activity-type {
+              font-family: $font-mono;
+              color: $neon-cyan;
+              font-size: 0.9rem;
+            }
+            
+            .activity-time {
+              font-family: $font-mono;
+              font-size: 0.85rem;
+              color: $text-muted;
+            }
+          }
+          
+          .activity-content {
+            color: $text-secondary;
+          }
+        }
+      }
+    }
+  }
+}

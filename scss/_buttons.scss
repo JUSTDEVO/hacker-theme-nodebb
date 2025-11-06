@@ -1,0 +1,79 @@
+// Button Styles
+
+.btn {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-md;
+  font-family: $font-mono;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all $transition-fast;
+  border: 2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &.btn-primary {
+    background: $neon-green;
+    color: $bg-primary;
+    border-color: $neon-green;
+    
+    &:hover:not(:disabled) {
+      @include glow-effect($neon-green, 0.6);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.btn-secondary {
+    background: transparent;
+    color: $neon-cyan;
+    border-color: $neon-cyan;
+    
+    &:hover:not(:disabled) {
+      background: rgba($neon-cyan, 0.1);
+      @include glow-effect($neon-cyan, 0.4);
+    }
+  }
+  
+  &.btn-danger {
+    background: $error;
+    color: white;
+    border-color: $error;
+    
+    &:hover:not(:disabled) {
+      box-shadow: 0 0 20px rgba($error, 0.6);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.btn-ghost {
+    background: transparent;
+    color: $text-secondary;
+    border-color: transparent;
+    
+    &:hover:not(:disabled) {
+      color: $neon-green;
+      background: rgba($neon-green, 0.1);
+    }
+  }
+  
+  &.btn-sm {
+    padding: $spacing-xs $spacing-md;
+    font-size: 0.85rem;
+  }
+  
+  &.btn-lg {
+    padding: $spacing-md $spacing-xl;
+    font-size: 1.1rem;
+  }
+  
+  &.btn-block {
+    width: 100%;
+    justify-content: center;
+  }
+}

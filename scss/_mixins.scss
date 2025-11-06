@@ -1,0 +1,58 @@
+// Mixins for Hacker Theme
+
+@mixin glow-effect($color: $neon-green, $intensity: 0.5) {
+  box-shadow: 0 0 20px rgba($color, $intensity);
+  transition: box-shadow $transition-normal;
+  
+  &:hover {
+    box-shadow: 0 0 30px rgba($color, $intensity + 0.2);
+  }
+}
+
+@mixin terminal-border {
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  background: $bg-secondary;
+  
+  &:hover {
+    border-color: $border-glow;
+  }
+}
+
+@mixin neon-text($color: $neon-green) {
+  color: $color;
+  text-shadow: 0 0 10px rgba($color, 0.8);
+}
+
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin grid-background {
+  background-image: 
+    linear-gradient(rgba($neon-green, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($neon-green, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@mixin scrollbar-style {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $bg-secondary;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $neon-green;
+    border-radius: 4px;
+    
+    &:hover {
+      background: lighten($neon-green, 10%);
+    }
+  }
+}

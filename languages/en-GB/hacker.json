@@ -1,0 +1,15 @@
+{
+  "theme-name": "Hacker Terminal",
+  "theme-description": "Epic dark mode hacker-themed forum with cyberpunk aesthetics",
+  "settings": {
+    "title": "Hacker Theme Settings",
+    "enable-matrix-rain": "Enable Matrix Rain Effect",
+    "enable-sound": "Enable Notification Sounds",
+    "glow-intensity": "Glow Effect Intensity",
+    "save": "Save Settings"
+  },
+  "user-settings": {
+    "title": "Theme Preferences",
+    "description": "Customize your hacker theme experience"
+  }
+}

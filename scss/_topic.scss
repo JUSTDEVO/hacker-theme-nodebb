@@ -1,0 +1,146 @@
+// Topic Styles
+
+.topic-list {
+  .topic-item {
+    @include terminal-border;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: $spacing-lg;
+    align-items: center;
+    transition: all $transition-normal;
+    
+    &:hover {
+      @include glow-effect($neon-cyan, 0.3);
+      transform: translateX(4px);
+    }
+    
+    &.unread {
+      border-left: 4px solid $neon-green;
+      
+      &::before {
+        content: 'NEW';
+        position: absolute;
+        top: $spacing-sm;
+        right: $spacing-sm;
+        padding: 2px 8px;
+        background: $neon-green;
+        color: $bg-primary;
+        font-family: $font-mono;
+        font-size: 0.7rem;
+        font-weight: 700;
+        border-radius: $radius-sm;
+        animation: pulse 2s infinite;
+      }
+    }
+    
+    .topic-avatar {
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid $neon-cyan;
+        @include glow-effect($neon-cyan, 0.3);
+      }
+    }
+    
+    .topic-content {
+      .topic-title {
+        font-family: $font-mono;
+        font-size: 1.2rem;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+        
+        &:hover {
+          @include neon-text($neon-green);
+        }
+      }
+      
+      .topic-meta {
+        display: flex;
+        gap: $spacing-md;
+        font-size: 0.85rem;
+        color: $text-muted;
+        font-family: $font-mono;
+        
+        .username {
+          color: $neon-cyan;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        
+        .separator {
+          color: $text-muted;
+        }
+      }
+      
+      .topic-tags {
+        display: flex;
+        gap: $spacing-sm;
+        margin-top: $spacing-sm;
+        flex-wrap: wrap;
+        
+        .tag {
+          padding: 2px 8px;
+          background: rgba($neon-purple, 0.2);
+          border: 1px solid $neon-purple;
+          border-radius: $radius-sm;
+          font-size: 0.75rem;
+          font-family: $font-mono;
+          color: $neon-purple;
+          
+          &:hover {
+            background: rgba($neon-purple, 0.3);
+          }
+        }
+      }
+    }
+    
+    .topic-stats {
+      display: flex;
+      gap: $spacing-lg;
+      text-align: center;
+      
+      .stat {
+        .number {
+          display: block;
+          font-family: $font-mono;
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: $neon-green;
+        }
+        
+        .label {
+          font-size: 0.75rem;
+          color: $text-muted;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+
+// Topic Detail Page
+.topic-detail {
+  .topic-header {
+    @include terminal-border;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: $spacing-md;
+    }
+    
+    .topic-info {
+      display: flex;
+      gap: $spacing-lg;
+      font-family: $font-mono;
+      font-size: 0.9rem;
+      color: $text-secondary;
+    }
+  }
+}
